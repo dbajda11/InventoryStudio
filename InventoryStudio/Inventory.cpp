@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <limits>
+#include <algorithm>
+#include <cctype>
 
 using namespace std;
 
@@ -86,9 +88,9 @@ bool Inventory::productIdExists(int id) const
 	return false;
 }
 
-void Inventory::searchProductById() const
+void Inventory::searchProduct() const
 {
-	int searchId;
+	string searchValue;
 
 	cout << "\n--- Wyszukaj produkt ---\n";
 
@@ -98,20 +100,42 @@ void Inventory::searchProductById() const
 		return;
 	}
 
-	cout << "Podaj ID produktu: ";
-	cin >> searchId;
+	cout << "Podaj ID lub nazwe produktu: ";
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	getline(cin, searchValue);
 
+	bool isNumber = !searchValue.empty() && all_of(searchValue.begin(), searchValue.end(), [](char c)
+			{
+				return isdigit(static_cast<unsigned char>(c));
+			});
 
-	for (const Product& product : products)
+	if (isNumber)
 	{
-		if (product.id == searchId)
+		int searchId = stoi(searchValue);
+		for (const Product& product : products)
 		{
-			cout << "Znaleziono produktu o ID = " << to_string(searchId) << "\n\n";
-			displayProduct(product);
+			if (product.id == searchId)
+			{
+				cout << "Znaleziono produkt.\n\n";
+				displayProduct(product);
 
-			return;
+				return;
+			}
+		}
+	}
+	else
+	{
+		for (const Product& product : products)
+		{
+			if (product.name == searchValue)
+			{
+				cout << "Znaleziono produkt.\n\n";
+				displayProduct(product);
+
+				return;
+			}
 		}
 	}
 
-	cout << "Nie znaleziono produktu o ID = " << to_string(searchId);
+	cout << "Nie znaleziono produktu o ID = " << searchValue;
 }
