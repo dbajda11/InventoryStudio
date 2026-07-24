@@ -4,8 +4,11 @@
 
 struct Product
 {
-	int id;
-	std::string name;
-	double price;
-	int quantity;
+    int id;
+    std::string name;
+    std::string brand;
+    std::string category;
+    std::string barcode;
+    double price;
+    int quantity;
 };

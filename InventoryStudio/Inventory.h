@@ -3,16 +3,16 @@
 #include <vector>
 #include "Product.h"
 
-using namespace std;
 
 class Inventory
 {
 private:
-	vector<Product> products;
+	std::vector<Product> products;
 	bool productIdExists(int id) const;
+	void displayProduct(const Product& product) const;
 	
 public:
 	void addProduct();
 	void showProducts() const;
-	//const
+	void searchProductById() const;
 };

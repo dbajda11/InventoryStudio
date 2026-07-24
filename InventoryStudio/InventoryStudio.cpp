@@ -8,6 +8,7 @@ void showMenu()
     std::cout << "=========================\n";
     std::cout << "1. Dodaj produkt\n";
     std::cout << "2. Wyswietl produkty\n";
+    std::cout << "3. Wyszukaj produkt\n";
     std::cout << "0. Zakoncz program\n";
     std::cout << "Wybor: ";
 }
@@ -32,6 +33,10 @@ int main()
 
         case 2:
             inventory.showProducts();
+            break;
+
+        case 3:
+            inventory.searchProductById();
             break;
 
         case 0:
