@@ -10,6 +10,7 @@ void showMenu()
     std::cout << "2. Wyswietl produkty\n";
     std::cout << "3. Wyszukaj produkt\n";
     std::cout << "4. Edytuj produkt\n";
+    std::cout << "5. Usun produkt\n";
     std::cout << "0. Zakoncz program\n";
     std::cout << "Wybor: ";
 }
@@ -41,6 +42,9 @@ int main()
             break;
         case 4:
             inventory.editProduct();
+            break;
+        case 5:
+            inventory.deleteProduct();
             break;
 
         case 0:

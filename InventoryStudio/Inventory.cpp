@@ -260,8 +260,6 @@ void Inventory::editProduct()
 					break;
 				}
 
-
-
 				default:
 					cout << "Nieprawidlowy wybor.\n";
 				}
@@ -279,5 +277,44 @@ void Inventory::editProduct()
 		}
 	}
 
+	cout << "Nie znaleziono produktu o ID = " << searchValue << "\n";
+}
+
+void Inventory::deleteProduct()
+{
+	int searchValue;
+	string choiceToDelete;
+
+	if (products.empty())
+	{
+		cout << "Magazyn jest pusty\n";
+		return;
+	}
+
+	cout << "Podaj ID produktu, ktory chcesz usunac: ";
+	cin >> searchValue;
+
+	for (auto it = products.begin(); it != products.end(); ++it)
+	{
+		if (it->id == searchValue)
+		{
+			cout << "\nAktualne dane produktu:\n";
+			displayProduct(*it);
+
+			cout << "\nCzy napewno chcesz usunac produkt? (tak/nie)";
+			cin >> choiceToDelete;
+
+			if (choiceToDelete == "tak")
+			{
+				products.erase(it);
+				cout << "Produkt zostal usuniety.\n";
+				return;
+			}
+			else
+			{
+				return;
+			}
+		}
+	}
 	cout << "Nie znaleziono produktu o ID = " << searchValue << "\n";
 }

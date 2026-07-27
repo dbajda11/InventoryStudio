@@ -16,4 +16,5 @@ public:
 	void showProducts() const;
 	void searchProduct() const;
 	void editProduct();
+	void deleteProduct();
 };
