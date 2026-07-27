@@ -9,6 +9,7 @@ class Inventory
 private:
 	std::vector<Product> products;
 	bool productIdExists(int id) const;
+	bool productIdExists(int id, int ignoredId) const;
 	void displayProduct(const Product& product) const;
 	
 public:

@@ -37,13 +37,13 @@ void Inventory::addProduct()
 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
 	cout << "\nPodaj nazwe produktu: ";
-	cin >> product.name;
+	getline(cin, product.name);
 
 	cout << "\nPodaj marke produktu: ";
-	cin >> product.brand;
+	getline(cin, product.brand);
 
 	cout << "\nPodaj kategorie produktu: ";
-	cin >> product.category;
+	getline(cin, product.category);
 
 	cout << "\nPodaj kod kreskowy/EAN produktu: ";
 	cin >> product.barcode;
@@ -88,6 +88,19 @@ bool Inventory::productIdExists(int id) const
 	return false;
 }
 
+bool Inventory::productIdExists(int id, int ignoredId) const
+{
+	for (const Product& product : products)
+	{
+		if (product.id == id && product.id != ignoredId)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
 void Inventory::searchProduct() const
 {
 	string searchValue;
@@ -122,6 +135,7 @@ void Inventory::searchProduct() const
 				return;
 			}
 		}
+		cout << "Nie znaleziono produktu o ID = " << searchValue;
 	}
 	else
 	{
@@ -137,7 +151,7 @@ void Inventory::searchProduct() const
 		}
 	}
 
-	cout << "Nie znaleziono produktu o ID = " << searchValue;
+	cout << "Nie znaleziono produktu o nazwie = " << searchValue;
 }
 
 void Inventory::editProduct()
@@ -184,7 +198,14 @@ void Inventory::editProduct()
 					cout << "Podaj nowe ID: ";
 					cin >> newId;
 
-					product.id = newId;
+					if (productIdExists(newId, product.id))
+					{
+						cout << "Produkt o takim ID juz istnieje.\n";
+					}
+					else
+					{
+						product.id = newId;
+					}
 					break;
 				}
 
@@ -241,7 +262,6 @@ void Inventory::editProduct()
 					double newPrice;
 
 					cout << "Podaj nowa cene: ";
-					cin.ignore(numeric_limits<streamsize>::max(), '\n');
 					cin >> newPrice;
 
 					product.price = newPrice;
@@ -253,7 +273,6 @@ void Inventory::editProduct()
 					int newQuantity;
 
 					cout << "Podaj nowa ilosc: ";
-					cin.ignore(numeric_limits<streamsize>::max(), '\n');
 					cin >> newQuantity;
 
 					product.quantity = newQuantity;
