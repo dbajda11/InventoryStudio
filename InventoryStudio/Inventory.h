@@ -14,5 +14,6 @@ private:
 public:
 	void addProduct();
 	void showProducts() const;
-	void searchProductById() const;
+	void searchProduct() const;
+	void editProduct();
 };

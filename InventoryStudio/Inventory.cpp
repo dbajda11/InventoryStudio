@@ -139,3 +139,145 @@ void Inventory::searchProduct() const
 
 	cout << "Nie znaleziono produktu o ID = " << searchValue;
 }
+
+void Inventory::editProduct()
+{
+	int searchValue;
+	string choiceToContinue;
+	int choiceValueToChange;
+
+	if (products.empty())
+	{
+		cout << "Magazyn jest pusty.\n";
+		return;
+	}
+
+	cout << "Podaj ID produktu, ktory chcesz edytowac: ";
+	cin >> searchValue;
+
+	for (Product& product : products)
+	{
+		if (product.id == searchValue)
+		{
+			displayProduct(product);
+
+			do
+			{
+				cout << "\nCo chcesz zmienic?\n";
+				cout << "1. ID\n";
+				cout << "2. Nazwe\n";
+				cout << "3. Marke\n";
+				cout << "4. Kategorie\n";
+				cout << "5. Kod kreskowy/EAN\n";
+				cout << "6. Cene\n";
+				cout << "7. Ilosc\n";
+
+				cout << "Wybor: ";
+				cin >> choiceValueToChange;
+
+				switch (choiceValueToChange)
+				{
+				case 1:
+				{
+					int newId;
+
+					cout << "Podaj nowe ID: ";
+					cin >> newId;
+
+					product.id = newId;
+					break;
+				}
+
+				case 2:
+				{
+					string newName;
+
+					cout << "Podaj nowa nazwe: ";
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+					getline(cin, newName);
+
+					product.name = newName;
+					break;
+				}
+
+				case 3:
+				{
+					string newBrand;
+
+					cout << "Podaj nowa marke: ";
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+					getline(cin, newBrand);
+
+					product.brand = newBrand;
+					break;
+				}
+
+				case 4:
+				{
+					string newCategory;
+
+					cout << "Podaj nowa katogarie: ";
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+					getline(cin, newCategory);
+
+					product.category = newCategory;
+					break;
+				}
+
+				case 5:
+				{
+					string newBarcode;
+
+					cout << "Podaj nowy kod kreskowy/EAN: ";
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+					getline(cin, newBarcode);
+
+					product.barcode = newBarcode;
+					break;
+				}
+
+				case 6:
+				{
+					double newPrice;
+
+					cout << "Podaj nowa cene: ";
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+					cin >> newPrice;
+
+					product.price = newPrice;
+					break;
+				}
+
+				case 7:
+				{
+					int newQuantity;
+
+					cout << "Podaj nowa ilosc: ";
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+					cin >> newQuantity;
+
+					product.quantity = newQuantity;
+					break;
+				}
+
+
+
+				default:
+					cout << "Nieprawidlowy wybor.\n";
+				}
+
+				cout << "Czy chcesz zmienic kolejne pole? tak/nie: ";
+				cin >> choiceToContinue;
+
+			} while (choiceToContinue != "nie");
+
+			cout << "Produkt zostal zaktualizowany.\n";
+
+			cout << "\nAktualne dane produktu:\n";
+			displayProduct(product);
+			return;
+		}
+	}
+
+	cout << "Nie znaleziono produktu o ID = " << searchValue << "\n";
+}
